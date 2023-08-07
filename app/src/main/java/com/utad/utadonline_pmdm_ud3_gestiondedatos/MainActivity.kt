@@ -43,4 +43,34 @@ class MainActivity : AppCompatActivity() {
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
     }
+
+    private fun saveDataExample(){
+        //Ponemos en modo "edición" las sharedPreferences
+        val editor = sharedPreferencesStorage.edit()
+
+        //Preparamos los datos para ser guardados
+        editor.putString("playerName", "María del Mar")
+        editor.putBoolean("aceptedTermsAndConditions", true)
+        editor.putInt("age", 29)
+        editor.putFloat("score", 2.1f)
+        editor.putLong("rankingGlobalPosition", 173324234L)
+        editor.putStringSet("playedPositions", mutableSetOf("Interior izquierda", "Central"))
+
+        //Tenemos dos opciones a la hora de guardar los cambios
+        editor.apply()// No retorna nada. Es más rápido.
+        editor.commit()// Devuelve true si los cambios se guardaron con éxito, false si hubo fallo. Es más lento pero sabemos si hubo un error.
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
