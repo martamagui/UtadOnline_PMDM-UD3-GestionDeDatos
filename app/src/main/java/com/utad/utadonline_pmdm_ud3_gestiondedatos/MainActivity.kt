@@ -6,8 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import com.google.android.material.snackbar.Snackbar
+import com.utad.utadonline_pmdm_ud3_gestiondedatos.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var _binding: ActivityMainBinding
+    private val binding: ActivityMainBinding get() = _binding
 
     //Nombre de nuestro almacenamiento de datos
     private val storageName = "SharedPreferencesStorage"
@@ -17,10 +22,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initEncryptedSharedPreferences()
         initSharedPreferences()
+        saveDataExample()
+        readData()
     }
 
     private fun initSharedPreferences() {
@@ -44,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun saveDataExample(){
+    private fun saveDataExample() {
         //Ponemos en modo "edición" las sharedPreferences
         val editor = sharedPreferencesStorage.edit()
 
@@ -63,14 +71,18 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    private fun readData() {
+        val name = sharedPreferencesStorage.getString("playerName", null)
+        val acceptedTerms = sharedPreferencesStorage.getBoolean("aceptedTermsAndConditions", false)
+        val age = sharedPreferencesStorage.getInt("age", 0)
+        val score = sharedPreferencesStorage.getFloat("score", 0.0f)
+        val rakingPosotion = sharedPreferencesStorage.getLong("rankingGlobalPosition", 0L)
+        val playedPositions = sharedPreferencesStorage.getStringSet("playedPositions", null)
 
-
-
-
-
-
-
-
+        val playerDescription =
+            "$name, juega de: $playedPositions, tiene $age años, con una puntuación media de $score goles por partido."
+        binding.tvPlayerDescription.text = playerDescription
+    }
 
 
 }
