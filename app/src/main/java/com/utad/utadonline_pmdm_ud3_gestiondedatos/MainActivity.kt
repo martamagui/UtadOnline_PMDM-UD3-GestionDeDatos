@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
-import com.google.android.material.snackbar.Snackbar
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -58,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
         //Preparamos los datos para ser guardados
         editor.putString("playerName", "María del Mar")
-        editor.putBoolean("aceptedTermsAndConditions", true)
+        editor.putBoolean("acceptedTermsAndConditions", true)
         editor.putInt("age", 29)
         editor.putFloat("score", 2.1f)
         editor.putLong("rankingGlobalPosition", 173324234L)
@@ -73,16 +72,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun readData() {
         val name = sharedPreferencesStorage.getString("playerName", null)
-        val acceptedTerms = sharedPreferencesStorage.getBoolean("aceptedTermsAndConditions", false)
+        val acceptedTerms = sharedPreferencesStorage.getBoolean("acceptedTermsAndConditions", false)
         val age = sharedPreferencesStorage.getInt("age", 0)
         val score = sharedPreferencesStorage.getFloat("score", 0.0f)
-        val rakingPosotion = sharedPreferencesStorage.getLong("rankingGlobalPosition", 0L)
+        val rakingPosition = sharedPreferencesStorage.getLong("rankingGlobalPosition", 0L)
         val playedPositions = sharedPreferencesStorage.getStringSet("playedPositions", null)
 
         val playerDescription =
             "$name, juega de: $playedPositions, tiene $age años, con una puntuación media de $score goles por partido."
         binding.tvPlayerDescription.text = playerDescription
     }
+
 
     private fun deleteAllData(){
 
