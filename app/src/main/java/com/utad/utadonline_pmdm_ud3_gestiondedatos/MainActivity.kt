@@ -84,5 +84,21 @@ class MainActivity : AppCompatActivity() {
         binding.tvPlayerDescription.text = playerDescription
     }
 
+    private fun deleteAllData(){
+
+        //Ponemos en modo "edición" las sharedPreferences
+        val editor = sharedPreferencesStorage.edit()
+
+        //Borra el dato guardado bajo la clave que enviemos por parámetro
+        editor.remove("playerName")
+
+        //Borra TODOS los datos guardados
+        editor.clear()
+
+        //Para que esto se aplique una vez terminemos, debemos hacer
+        // ".commit()" o ".apply()" igual que al guardar datos
+        editor.apply()
+    }
+
 
 }
