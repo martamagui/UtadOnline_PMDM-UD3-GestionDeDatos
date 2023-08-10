@@ -3,15 +3,12 @@ package com.utad.utadonline_pmdm_ud3_gestiondedatos
 import android.content.Context
 import android.content.SharedPreferences
 
-object SharedPreferencesStorage {
+class SharedPreferencesStorage(private val context: Context) {
     //Nombre de nuestro almacenamiento de datos
-    private const val storageName = "SharedPreferencesStorage"
-    private lateinit var sharedPreferencesStorage: SharedPreferences
+    private val storageName = "SharedPreferencesStorage"
+    private val sharedPreferencesStorage: SharedPreferences =
+        context.getSharedPreferences(storageName, Context.MODE_PRIVATE)
 
-    fun initSharedPreferences(context: Context) {
-        //Obtenemos la instancia de SharedPreferences
-        sharedPreferencesStorage = context.getSharedPreferences(storageName, Context.MODE_PRIVATE)
-    }
 
     fun saveString(key: String, value: String) {
         val editor = sharedPreferencesStorage.edit()
@@ -49,12 +46,13 @@ object SharedPreferencesStorage {
         editor.apply()
     }
 
-    fun deleteValue(key: String){
+    fun deleteValue(key: String) {
         val editor = sharedPreferencesStorage.edit()
         editor.remove(key)
         editor.apply()
     }
-    fun removeAllData(key: String){
+
+    fun removeAllData(key: String) {
         val editor = sharedPreferencesStorage.edit()
         editor.clear()
         editor.apply()
@@ -75,9 +73,11 @@ object SharedPreferencesStorage {
     fun readFloat(key: String): Float? {
         return sharedPreferencesStorage.getFloat(key, 0f)
     }
+
     fun readLong(key: String): Long? {
         return sharedPreferencesStorage.getLong(key, 0L)
     }
+
     fun readStringSet(key: String): Set<String>? {
         return sharedPreferencesStorage.getStringSet(key, null)
     }
