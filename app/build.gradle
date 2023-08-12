@@ -52,4 +52,7 @@ dependencies {
 
     //EncryptedSharedPreferences
     implementation "androidx.security:security-crypto:1.0.0"
+
+    //Corroutines
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
 }

@@ -4,12 +4,18 @@ import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.R
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.databinding.ActivityCleanedSharedPreferencesBinding
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CleanedSharedPreferencesActivity : AppCompatActivity() {
 
@@ -38,13 +44,19 @@ class CleanedSharedPreferencesActivity : AppCompatActivity() {
 
 
     private fun readData() {
-        binding.tvPlayerDescription.text = myCustomSharedPreferences.readData()
+        lifecycleScope.launch {
+            val playerDescription = myCustomSharedPreferences.readData()
+            binding.tvPlayerDescription.text = playerDescription
+        }
     }
 
 
     private fun deleteAllData() {
-        myCustomSharedPreferences.deleteAllData()
-        myCustomSharedPreferences.deleteOneValue("playerName")
+        lifecycleScope.launch {
+            myCustomSharedPreferences.deleteAllData()
+            myCustomSharedPreferences.deleteOneValue("playerName")
+        }
+
     }
 
 
