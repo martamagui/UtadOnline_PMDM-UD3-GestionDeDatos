@@ -44,8 +44,11 @@ class CleanedSharedPreferencesActivity : AppCompatActivity() {
 
 
     private fun readData() {
+        //Lanzamos la Coroutine y elejimos en qué Dispatcher queremos que se ejecute
         lifecycleScope.launch(Dispatchers.IO) {
             val playerDescription = myCustomSharedPreferences.readData()
+            //Cómo no podemos realizar acciones que impliquen a la interfaz en segundo plano
+            //Ejecutamos esta parte del código en el hilo principal.
             withContext(Dispatchers.Main){
                 binding.tvPlayerDescription.text = playerDescription
             }
