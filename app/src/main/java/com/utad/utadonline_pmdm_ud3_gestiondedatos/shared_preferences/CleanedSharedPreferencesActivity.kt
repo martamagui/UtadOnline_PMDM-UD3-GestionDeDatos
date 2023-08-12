@@ -44,9 +44,11 @@ class CleanedSharedPreferencesActivity : AppCompatActivity() {
 
 
     private fun readData() {
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             val playerDescription = myCustomSharedPreferences.readData()
-            binding.tvPlayerDescription.text = playerDescription
+            withContext(Dispatchers.Main){
+                binding.tvPlayerDescription.text = playerDescription
+            }
         }
     }
 
