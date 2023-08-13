@@ -52,7 +52,24 @@ class DataStoreActivity : AppCompatActivity() {
                 }
             }
         }
-        
+
+    }
+
+    private fun deleteDataStorage(){
+        // Si estuvieramos en un Fragmento llamaríamos al contexto así:
+        // val context: Context = requireContext()
+        val context: Context = this
+        //Cuando accedamos a DataStore deberemos hacerlo en una corrutina
+        lifecycleScope.launch(Dispatchers.IO) {
+            context.dataStore.edit { editor ->
+                //Borrar datos individuales
+                editor.remove(stringPreferencesKey("name"))
+                editor.remove(booleanPreferencesKey("acceptedTerms"))
+
+                //Eliminar TODOS los datos
+                editor.clear()
+            }
+        }
     }
 
     private fun readDataStorage(): Flow<String> {
