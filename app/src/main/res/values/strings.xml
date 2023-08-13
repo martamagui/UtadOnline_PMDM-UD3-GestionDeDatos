@@ -3,4 +3,5 @@
     <string name="title_activity_cleaned_shared_preferences">CleanedSharedPreferencesActivity</string>
     <string name="shared_preferences_title">SharedPreferences</string>
     <string name="shared_preferences_cleaned_code_title">SharedPreferences código mejorado</string>
+    <string name="data_store_code_title">DataStore</string>
 </resources>

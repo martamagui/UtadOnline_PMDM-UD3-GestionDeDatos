@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import com.utad.utadonline_pmdm_ud3_gestiondedatos.data_store.DataStoreActivity
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.databinding.ActivityMainBinding
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.shared_preferences.BasicSharedPreferencesActivity
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.shared_preferences.CleanedSharedPreferencesActivity
@@ -27,6 +28,14 @@ class MainActivity : AppCompatActivity() {
         binding.btnSharedPreferencesCleaned.setOnClickListener {
             navigateToSharedPreferencesCleanedCode()
         }
+        binding.btnDataStore.setOnClickListener {
+            navigateToDataStore()
+        }
+    }
+
+    private fun navigateToDataStore() {
+        val intent = Intent(this, DataStoreActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToSharedPreferencesCleanedCode() {
