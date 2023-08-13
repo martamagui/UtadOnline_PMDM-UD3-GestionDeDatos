@@ -9,6 +9,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.data_store.DataStoreActivity
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.databinding.ActivityMainBinding
+import com.utad.utadonline_pmdm_ud3_gestiondedatos.paper_db.PaperDBActivity
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.shared_preferences.BasicSharedPreferencesActivity
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.shared_preferences.CleanedSharedPreferencesActivity
 
@@ -31,6 +32,14 @@ class MainActivity : AppCompatActivity() {
         binding.btnDataStore.setOnClickListener {
             navigateToDataStore()
         }
+        binding.btnPaperDb.setOnClickListener {
+            navigateToPaperDB()
+        }
+    }
+
+    private fun navigateToPaperDB() {
+        val intent = Intent(this, PaperDBActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToDataStore() {

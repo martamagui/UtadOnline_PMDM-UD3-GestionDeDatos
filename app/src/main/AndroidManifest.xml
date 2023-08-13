@@ -13,6 +13,9 @@
         android:theme="@style/Theme.UtadOnline_PMDMUD3GestionDeDatos"
         tools:targetApi="31">
         <activity
+            android:name=".paper_db.PaperDBActivity"
+            android:exported="false" />
+        <activity
             android:name=".data_store.DataStoreActivity"
             android:exported="false" />
         <activity
