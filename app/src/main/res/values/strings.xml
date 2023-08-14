@@ -5,4 +5,14 @@
     <string name="shared_preferences_cleaned_code_title">SharedPreferences código mejorado</string>
     <string name="data_store_code_title">DataStore</string>
     <string name="paper_db_title">Paper DB</string>
+    <string name="delete_button_text">Eliminar</string>
+    <string name="item_name_title">Nombre: %s</string>
+    <string name="item_age_title">Edad: %s</string>
+    <string name="item_played_position_title">Juega en: %s</string>
+
+    <string name="add_title">Añadir jugador/a</string>
+    <string name="name_title">Nombre</string>
+    <string name="age_title">Edad</string>
+    <string name="played_position_title">Juega en</string>
+    <string name="add_button_text">Añadir</string>
 </resources>
