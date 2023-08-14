@@ -46,6 +46,14 @@ class PaperDBAddNewPlayerActivity : AppCompatActivity() {
 
     }
 
+    private fun saveData(player: Player) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            //Guardamos nuestro jugador en el book "players"
+            //Poniendo como clave su nombre
+            Paper.book("players").write(player.name!!, player)
+        }
+    }
+
     private fun addPositionToList() {
         val position = binding.etPlayedPlayedPosition.text.toString().trim()
         playedPositions.add(position)
@@ -64,14 +72,6 @@ class PaperDBAddNewPlayerActivity : AppCompatActivity() {
     private fun showError() {
         val message = getString(R.string.add_error_text)
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
-    }
-
-    private fun saveData(player: Player) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            //Guardamos nuestro jugador en el book "players"
-            //Poniendo como clave su nombre
-            Paper.book("players").write(player.name!!, player)
-        }
     }
 
     private fun dataIsOkay(): Boolean {

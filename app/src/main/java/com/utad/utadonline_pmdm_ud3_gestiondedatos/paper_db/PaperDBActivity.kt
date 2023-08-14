@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.Orientation
+import com.google.android.material.snackbar.Snackbar
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.DataBasePlayerAdapter
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.R
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.databinding.ActivityPaperDbactivityBinding
@@ -35,6 +36,26 @@ class PaperDBActivity : AppCompatActivity() {
         readPlayersInDataBase()
     }
 
+    private fun setUI() {
+        binding.rvPlayer.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvPlayer.adapter = adapter
+
+        binding.fabAddNewPlayer.setOnClickListener { goToAddPlayer() }
+        binding.fabeDeleteAll.setOnClickListener { deleteAll() }
+    }
+
+    private fun deleteItem(player: Player) {
+        //Lanzamos una Coroutine para borrar los datos
+        lifecycleScope.launch(Dispatchers.IO) {
+            //Eliminamos el jugador por su nombre
+            Paper.book("players").delete(player.name.toString())
+            //Llamamos a la función  anterior de lectura para que muestre los datos actualizados en la vista
+            readPlayersInDataBase()
+        }
+        Snackbar.make(binding.root, "${player.name} eliminado", Snackbar.LENGTH_SHORT).show()
+    }
+
     private fun readPlayersInDataBase() {
         //Lanzamos una Coroutine para leer los datos
         lifecycleScope.launch(Dispatchers.IO) {
@@ -57,16 +78,15 @@ class PaperDBActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUI() {
-        binding.rvPlayer.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvPlayer.adapter = adapter
-
-        binding.fabAddNewPlayer.setOnClickListener { goToAddPlayer() }
-    }
-
-    private fun deleteItem(it: Player) {
-
+    private fun deleteAll() {
+        //Lanzamos una Coroutine para borrar los datos
+        lifecycleScope.launch(Dispatchers.IO) {
+            //Eliminamos todos los datos del book
+            Paper.book("players").destroy()
+            //Llamamos a la función  anterior de lectura para que muestre los datos actualizados
+            readPlayersInDataBase()
+        }
+        Snackbar.make(binding.root, "Base de datos limpia", Snackbar.LENGTH_SHORT).show()
     }
 
     private fun goToAddPlayer() {
