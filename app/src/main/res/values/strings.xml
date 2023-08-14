@@ -15,4 +15,5 @@
     <string name="age_title">Edad</string>
     <string name="played_position_title">Juega en</string>
     <string name="add_button_text">Añadir</string>
+    <string name="add_error_text">Los campos no deben estar vacíos</string>
 </resources>

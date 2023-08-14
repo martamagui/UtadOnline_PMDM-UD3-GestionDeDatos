@@ -27,15 +27,9 @@ class DataBasePlayerAdapter(
 
         holder.binding.tvName.text = context.getString(R.string.item_name_title, player.name)
         holder.binding.tvAge.text = context.getString(R.string.item_age_title, "${player.age}")
-        var playedPositions: String = ""
-        player.playedPositions?.forEach { position ->
-            playedPositions = ",$position"
-        }
-        if (playedPositions.isNotEmpty()) {
-            playedPositions.removePrefix(",")
-        }
+        var playedPositions: String? = player.playedPositions?.joinToString(separator = ", ")
         holder.binding.tvPlayedPosition.text =
-            context.getString(R.string.item_played_position_title)
+            context.getString(R.string.item_played_position_title, playedPositions)
         holder.binding.btnDeletePlayer.setOnClickListener { deleteAction(player) }
     }
 
