@@ -6,6 +6,7 @@ import com.utad.utadonline_pmdm_ud3_gestiondedatos.room.entities.Employee
 
 @Database(entities = [Employee::class], version = 1)
 abstract class MyDataBase : RoomDatabase() {
+    abstract fun employeeDao(): EmployeeDao
 }
 
 
