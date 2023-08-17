@@ -5,6 +5,7 @@
     <string name="shared_preferences_cleaned_code_title">SharedPreferences código mejorado</string>
     <string name="data_store_code_title">DataStore</string>
     <string name="paper_db_title">Paper DB</string>
+    <string name="room_title">Room</string>
     <string name="delete_button_text">Eliminar</string>
     <string name="item_name_title">Nombre: %s</string>
     <string name="item_age_title">Edad: %s</string>

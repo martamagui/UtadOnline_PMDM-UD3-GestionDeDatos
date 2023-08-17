@@ -11,19 +11,17 @@ import io.paperdb.Paper
 
 class MyApplication : Application() {
     //Instanciación de Room
-   lateinit var room : RoomDatabase.Builder<MyDataBase>
+   lateinit var room : MyDataBase
 
     override fun onCreate() {
         super.onCreate()
-        // Inicializamos PaperDB
-        // La inicialización debe ser llamada desde el hilo principal
-        Paper.init(applicationContext)
-        //Inicializamos room
         room = Room.databaseBuilder(
             applicationContext,
             MyDataBase::class.java,
             "MyDataBase"
-        )
+        ).build()
     }
 
 }
+
+

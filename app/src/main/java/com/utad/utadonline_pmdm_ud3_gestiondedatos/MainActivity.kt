@@ -10,6 +10,7 @@ import androidx.security.crypto.MasterKeys
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.data_store.DataStoreActivity
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.databinding.ActivityMainBinding
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.paper_db.PaperDBActivity
+import com.utad.utadonline_pmdm_ud3_gestiondedatos.room.ui.RoomSampleActivity
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.shared_preferences.BasicSharedPreferencesActivity
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.shared_preferences.CleanedSharedPreferencesActivity
 
@@ -35,6 +36,14 @@ class MainActivity : AppCompatActivity() {
         binding.btnPaperDb.setOnClickListener {
             navigateToPaperDB()
         }
+        binding.btnRoom.setOnClickListener {
+            navigateToRoom()
+        }
+    }
+
+    private fun navigateToRoom() {
+        val intent = Intent(this, RoomSampleActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToPaperDB() {
