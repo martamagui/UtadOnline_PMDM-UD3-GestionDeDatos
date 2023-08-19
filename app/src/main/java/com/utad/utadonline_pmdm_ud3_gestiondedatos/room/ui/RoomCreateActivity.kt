@@ -6,10 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
-import com.utad.utadonline_pmdm_ud3_gestiondedatos.R
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.databinding.ActivityRoomCreateBinding
 
 class RoomCreateActivity : AppCompatActivity() {
@@ -28,16 +26,13 @@ class RoomCreateActivity : AppCompatActivity() {
     private fun checkIfWeAlreadyHaveThisPermission() {
         val externalStoragePermission: String = Manifest.permission.READ_EXTERNAL_STORAGE
         val permissionStatus = ContextCompat.checkSelfPermission(this, externalStoragePermission)
+
         // Verificar si ya tenemos permiso
         if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
-            // Ya tenemos permiso, puedes realizar la acción que necesites aquí.
-            Snackbar.make(
-                binding.root,
-                "El usuario había concedido el permiso previamente",
-                Snackbar.LENGTH_SHORT
-            ).show()
+            // Ya tenemos permiso, podemos realizar la acción que lo necesita.
+            showGrantedPermissionMessage()
         } else {
-            // No tenemos permiso, solicitamos al usuario que lo conceda.
+            // No tenemos permiso, mostramos la solicitud al usuario.
             requestPermissionLauncher.launch(externalStoragePermission)
         }
     }
@@ -54,4 +49,13 @@ class RoomCreateActivity : AppCompatActivity() {
                 Snackbar.make(binding.root, "El usuario lo denegó", Snackbar.LENGTH_SHORT).show()
             }
         }
+
+    private fun showGrantedPermissionMessage() {
+        Snackbar.make(
+            binding.root,
+            "El usuario había concedido el permiso previamente",
+            Snackbar.LENGTH_SHORT
+        ).show()
+    }
+
 }
