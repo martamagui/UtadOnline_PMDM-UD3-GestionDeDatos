@@ -6,6 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.room.entities.*
 
@@ -56,9 +57,22 @@ interface EmployeeDao {
     suspend fun deleteEmployeesByJob(jobParam: String)
 
 
-    //Conseguir las horas de la tabla ClockIn de cada empleado
-    @Query("SELECT time AS clockInTime, employee.id AS employeeId FROM clockin, employee WHERE employee.id = clockin.employeeId AND employee.id = :employeeIdParam")
+    @Query(
+        "SELECT time AS clockInTime, employee.id AS employeeId FROM clockin, " +
+                "employee WHERE employee.id = clockin.employeeId AND employee.id = :employeeIdParam"
+    )
     suspend fun getEmployeeClockIn(employeeIdParam: Int): List<EmployeeClockIn>
+
+    //Obtener todos los resultados de la realación Employee-ClockIn mediante la
+    // Data Class que las relaciona
+
+
+    @Transaction
+    @Query("SELECT *  FROM Employee")
+    fun getEmployeesAndCheckIns(): List<EmployeeClockInRelation>
+
+
+
 
 
 }
