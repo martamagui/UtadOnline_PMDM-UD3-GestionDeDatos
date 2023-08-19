@@ -1,11 +1,13 @@
 package com.utad.utadonline_pmdm_ud3_gestiondedatos.room.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.MyApplication
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.R
+import com.utad.utadonline_pmdm_ud3_gestiondedatos.databinding.ActivityRoomSampleBinding
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.room.entities.ClockIn
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.room.entities.Employee
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.room.entities.VacationInfo
@@ -14,9 +16,13 @@ import kotlinx.coroutines.launch
 
 class RoomSampleActivity : AppCompatActivity() {
 
+    private lateinit var _binding: ActivityRoomSampleBinding
+    private val binding: ActivityRoomSampleBinding get() = _binding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_room_sample)
+        _binding = ActivityRoomSampleBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //Accedemos a MyApplication para poder acceder a room
         val app = applicationContext as MyApplication
@@ -25,6 +31,10 @@ class RoomSampleActivity : AppCompatActivity() {
         addClockIn(app)
         readEmployees(app)
         readClockInAndEmployees(app)
+
+        binding.fabNewEmployee.setOnClickListener {
+            navigateToAddEmployee()
+        }
 
     }
 
@@ -73,5 +83,12 @@ class RoomSampleActivity : AppCompatActivity() {
             )
         }
     }
+
+
+    private fun navigateToAddEmployee() {
+        val intent = Intent(this, RoomCreateActivity::class.java)
+        startActivity(intent)
+    }
+
 
 }
