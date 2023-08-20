@@ -14,7 +14,7 @@ import com.utad.utadonline_pmdm_ud3_gestiondedatos.room.entities.*
 interface EmployeeDao {
 
     //Agrega a la tabla un único empleado
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addNewEmployee(employee: Employee)
 
     //Agrega a la tabla ambos empleados
@@ -52,6 +52,10 @@ interface EmployeeDao {
     @Query("SELECT * FROM employee WHERE job=:jobParam")
     suspend fun getEmployeeByJob(jobParam: String): List<Employee>
 
+    //Devuelve el empleado el cual coincida su ID
+    @Query("SELECT * FROM employee WHERE id=:employeeId")
+    suspend fun getEmployeeById(employeeId: Int): Employee
+
     //Elimina todos los empleados que su trabajo coincida por el pasado por parámetro
     @Query("DELETE FROM employee WHERE job=:jobParam")
     suspend fun deleteEmployeesByJob(jobParam: String)
@@ -70,9 +74,6 @@ interface EmployeeDao {
     @Transaction
     @Query("SELECT *  FROM Employee")
     fun getEmployeesAndCheckIns(): List<EmployeeClockInRelation>
-
-
-
 
 
 }

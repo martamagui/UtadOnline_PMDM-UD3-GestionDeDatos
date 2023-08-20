@@ -1,6 +1,7 @@
 package com.utad.utadonline_pmdm_ud3_gestiondedatos.room.ui
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -27,7 +28,7 @@ class RoomSampleActivity : AppCompatActivity() {
         //Accedemos a MyApplication para poder acceder a room
         val app = applicationContext as MyApplication
 
-        saveEmployee(app)
+        //saveEmployee(app)
         addClockIn(app)
         readEmployees(app)
         readClockInAndEmployees(app)
@@ -78,7 +79,8 @@ class RoomSampleActivity : AppCompatActivity() {
                     id = 0,
                     name = "Julia",
                     job = "Marketing",
-                    vacationInfo = VacationInfo(21, 3)
+                    vacationInfo = VacationInfo(21, 3),
+                    image = BitmapFactory.decodeResource(resources, R.drawable.ic_delete)
                 )
             )
         }
