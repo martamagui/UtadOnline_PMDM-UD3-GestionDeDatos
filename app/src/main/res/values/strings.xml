@@ -20,5 +20,10 @@
     <string name="add_error_text">Los campos no deben estar vacíos</string>
     <string name="item_employee_vacation_info">Ha gastado 1%s y le quedan 2%s días de vacaciones.</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="employee_hint_name">Nombre</string>
+    <string name="employee_hint_job">Puesto</string>
+    <string name="employee_hint_days_taken">Días de vacaciones disfrutados</string>
+    <string name="employee_hint_days_left">Días restantes</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

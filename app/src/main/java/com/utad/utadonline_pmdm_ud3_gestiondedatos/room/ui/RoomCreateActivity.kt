@@ -21,9 +21,9 @@ import com.utad.utadonline_pmdm_ud3_gestiondedatos.databinding.ActivityRoomCreat
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.room.entities.Employee
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.room.entities.VacationInfo
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.ByteArrayOutputStream
 
 
 class RoomCreateActivity : AppCompatActivity() {
@@ -47,16 +47,29 @@ class RoomCreateActivity : AppCompatActivity() {
         }
 
         binding.btnSave.setOnClickListener {
-            if (employeeImage != null) {
-                val employee =
-                    Employee(0, "Berta", "Contabilidad", VacationInfo(1, 29), employeeImage!!)
-                saveEmployee(employee)
-            }
+            takeDataAndSaveEmployee()
         }
-
     }
 
-    private fun saveEmployee(employee: Employee) {
+    private fun takeDataAndSaveEmployee() {
+        val name = binding.etEmployeeName.text.toString().trim()
+        val job = binding.etEmployeeJob.text.toString().trim()
+        val daysTaken = binding.etDaysTaken.text.toString().trim().toInt()
+        val daysLeft = binding.etDaysLeft.text.toString().trim().toInt()
+
+        if (employeeImage != null && name.isNullOrEmpty() == false &&
+            job.isNullOrEmpty() == false && daysTaken != null && daysLeft != null
+        ) {
+            val employee =
+                Employee(0, name, job, VacationInfo(daysLeft, daysTaken), employeeImage!!)
+            takeDataAndSaveEmployee(employee)
+        } else {
+            Toast.makeText(this, "Por favor, rellena toda la información", Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
+
+    private fun takeDataAndSaveEmployee(employee: Employee) {
         val application = applicationContext as MyApplication
 
         lifecycleScope.launch(Dispatchers.IO) {
@@ -70,6 +83,7 @@ class RoomCreateActivity : AppCompatActivity() {
                 // para mostrar la imagen en la ImageView
                 if (savedEmployee != null && savedEmployee.image != null)
                     binding.ivEmployeeImage.setImageBitmap(savedEmployee.image)
+                finish()
             }
         }
     }
@@ -83,6 +97,7 @@ class RoomCreateActivity : AppCompatActivity() {
                 if (data != null) {
                     val selectedImageUri: Uri? = data.data
                     employeeImage = convertUriToBitmap(selectedImageUri)
+                    binding.ivEmployeeImage.setImageBitmap(employeeImage)
                 } else {
                     showErrorMessageNoImage()
                 }

@@ -26,7 +26,7 @@ class PaperDBAddNewPlayerActivity : AppCompatActivity() {
         binding.btnAdd.setOnClickListener {
             if (dataIsOkay()) {
                 //Si todo está en orden, guardamos los datos escritos
-                val name = binding.etName.text.toString()
+                val name = binding.etPlayerName.text.toString()
                 val age = binding.etAge.text.toString().toInt()
                 val player =
                     Player(name = name, true, age, 1.0f, 1L, playedPositions = playedPositions)
@@ -75,7 +75,7 @@ class PaperDBAddNewPlayerActivity : AppCompatActivity() {
     }
 
     private fun dataIsOkay(): Boolean {
-        val name = binding.etName.text
+        val name = binding.etPlayerName.text
         val age = binding.etAge.text
         return name.isNullOrEmpty() == false && age.isNullOrEmpty() == false && playedPositions.size > 0
     }

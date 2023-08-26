@@ -34,7 +34,10 @@ class RoomListFragment : Fragment() {
         binding.rvEmployee.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvEmployee.adapter = adapter
+    }
 
+    override fun onResume() {
+        super.onResume()
         getEmployeeList()
     }
 

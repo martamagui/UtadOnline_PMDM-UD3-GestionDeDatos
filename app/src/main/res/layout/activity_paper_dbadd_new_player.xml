@@ -27,7 +27,7 @@
             android:hint="@string/name_title">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_name"
+                android:id="@+id/et_player_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text|textAutoComplete|textAutoCorrect" />
