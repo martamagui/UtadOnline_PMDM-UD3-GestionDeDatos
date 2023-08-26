@@ -1,6 +1,7 @@
 package com.utad.utadonline_pmdm_ud3_gestiondedatos.room.ui
 
 import android.view.LayoutInflater
+import android.view.View.OnLongClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -8,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.databinding.ItemEmployeeBinding
 import com.utad.utadonline_pmdm_ud3_gestiondedatos.room.entities.Employee
 
-class EmployeeListAdapter(val goToDetail: (employeeId: Int) -> Unit) :
+class EmployeeListAdapter(
+    val goToDetail: (employeeId: Int) -> Unit,
+    val removeEmployee: (employee: Employee, position: Int) -> Unit
+) :
     ListAdapter<Employee, EmployeeListAdapter.EmployeeViewHolder>(EmployeeItemCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmployeeViewHolder {
@@ -26,6 +30,10 @@ class EmployeeListAdapter(val goToDetail: (employeeId: Int) -> Unit) :
         holder.binding.ivEmployeePhoto.setImageBitmap(employee.image)
 
         holder.binding.root.setOnClickListener { goToDetail(employee.id) }
+        holder.binding.root.setOnLongClickListener {
+            removeEmployee(employee, position)
+            return@setOnLongClickListener true
+        }
     }
 
     inner class EmployeeViewHolder(val binding: ItemEmployeeBinding) : ViewHolder(binding.root)
