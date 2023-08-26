@@ -75,6 +75,10 @@ interface EmployeeDao {
     @Query("SELECT *  FROM Employee")
     fun getEmployeesAndCheckIns(): List<EmployeeClockInRelation>
 
+    @Transaction
+    @Query("SELECT *  FROM Employee WHERE employee.id =:employeeId")
+    fun getEmployeeAndClocInsById(employeeId: Int): EmployeeClockInRelation
+
 
 }
 
