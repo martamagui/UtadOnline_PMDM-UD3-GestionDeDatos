@@ -12,6 +12,7 @@ data class Employee(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val name: String,
+    @ColumnInfo(name = "job", defaultValue = "Programador")
     val job: String,
     @Embedded
     val vacationInfo: VacationInfo,

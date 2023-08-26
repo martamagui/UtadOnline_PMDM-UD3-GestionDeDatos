@@ -15,6 +15,10 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        //Inicialización de PaperDB
+        Paper.init(applicationContext)
+
+        //Inicilialización de PaperDB
         room = Room.databaseBuilder(
             applicationContext,
             MyDataBase::class.java,

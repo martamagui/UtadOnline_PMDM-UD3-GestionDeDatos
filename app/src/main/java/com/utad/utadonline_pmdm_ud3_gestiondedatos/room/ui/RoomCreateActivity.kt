@@ -38,7 +38,10 @@ class RoomCreateActivity : AppCompatActivity() {
 
         checkIfWeAlreadyHaveThisPermission()
         binding.btnGallery.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            val intent = Intent(
+                Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            )
             intent.type = "image/*"
             imageGalleryLauncher.launch(intent)
         }
@@ -46,7 +49,7 @@ class RoomCreateActivity : AppCompatActivity() {
         binding.btnSave.setOnClickListener {
             if (employeeImage != null) {
                 val employee =
-                    Employee(123, "Berta", "Contabilidad", VacationInfo(1, 29), employeeImage!!)
+                    Employee(0, "Berta", "Contabilidad", VacationInfo(1, 29), employeeImage!!)
                 saveEmployee(employee)
             }
         }
@@ -65,7 +68,8 @@ class RoomCreateActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 // En el hilo principal usaremos "setImageBitmap()"
                 // para mostrar la imagen en la ImageView
-                binding.ivEmployeeImage.setImageBitmap(savedEmployee.image)
+                if (savedEmployee != null && savedEmployee.image != null)
+                    binding.ivEmployeeImage.setImageBitmap(savedEmployee.image)
             }
         }
     }
@@ -86,7 +90,7 @@ class RoomCreateActivity : AppCompatActivity() {
                 showErrorMessageNoImage()
             }
         }
-    
+
     private fun convertUriToBitmap(uri: Uri?): Bitmap? {
         try {
             //A partir del Uri de la imagen recibida, obtenemos el Bitmap
