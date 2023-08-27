@@ -3,6 +3,7 @@ package com.utad.utadonline_pmdm_ud3_gestiondedatos.data_store
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -32,6 +33,9 @@ class DataStoreActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityDataStoreBinding
     private val binding: ActivityDataStoreBinding get() = _binding
 
+    //Para guardar la lista de posiciones de los jugadores
+    private var playedPositions = mutableSetOf<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityDataStoreBinding.inflate(layoutInflater)
@@ -41,7 +45,7 @@ class DataStoreActivity : AppCompatActivity() {
             saveDataInDataStore("Juan Carlos", true, 24, 2.0f, 1231244L, setOf("Portero"))
         }
 
-        lifecycleScope.launch(Dispatchers.IO){
+        lifecycleScope.launch(Dispatchers.IO) {
             readDataStorage().collect { response ->
                 //Si la respuesta no es nula, mostraremos el texto
                 if (response != null) {
@@ -53,9 +57,37 @@ class DataStoreActivity : AppCompatActivity() {
             }
         }
 
+        binding.btnAdd.setOnClickListener {
+            val name = binding.etPreferencesPlayerName.text.toString().trim()
+            val age: Int = binding.etPreferencesAge.text.toString().trim().toInt()
+            val score: Float = binding.etPreferencesScore.text.toString().trim().toFloat()
+            val ranking: Long = binding.etPreferencesRanking.text.toString().trim().toLong()
+            val acceptedTerms: Boolean = binding.swPreferencesTerms.isChecked
+
+            if (name.isNullOrEmpty() == false && age != null && score != null && ranking != null && acceptedTerms != null && playedPositions.isNotEmpty()) {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    saveDataInDataStore(
+                        name,
+                        acceptedTerms,
+                        age,
+                        score,
+                        ranking,
+                        playedPositions.toSet()
+                    )
+                }
+            }else{
+                Toast.makeText(this, getString(R.string.add_error_text), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.tfPreferencesPlayedPlayedPosition.setEndIconOnClickListener {
+            if (isPositionValid()) {
+                addPositionToList()
+            }
+        }
     }
 
-    private fun deleteDataStorage(){
+    private fun deleteDataStorage() {
         // Si estuvieramos en un Fragmento llamaríamos al contexto así:
         // val context: Context = requireContext()
         val context: Context = this
@@ -83,7 +115,7 @@ class DataStoreActivity : AppCompatActivity() {
             val playedPositions = editor[stringSetPreferencesKey("playedPositions")]
 
             //Retorna el ultimo valor escrito
-            "$name, juega de: $playedPositions, tiene $age años, con una puntuación media de $score goles por partido."
+            "$name, juega de: ${playedPositions?.joinToString(",")}, tiene $age años, con una puntuación media de $score goles por partido."
         }
     }
 
@@ -105,8 +137,20 @@ class DataStoreActivity : AppCompatActivity() {
         }
     }
 
+    private fun addPositionToList() {
+        val position = binding.etPreferencesPlayedPlayedPosition.text.toString().trim()
+        playedPositions.add(position)
+        //Concetenamos todos los elementos de la lista separados por comas
+        val concatenatedString = playedPositions.joinToString(separator = ", ")
+        binding.tvPreferencesCurrentPositions.text =
+            getString(R.string.item_played_position_title, concatenatedString)
+        binding.etPreferencesPlayedPlayedPosition.setText("")
+    }
 
-
+    private fun isPositionValid(): Boolean {
+        val position: String = binding.etPreferencesPlayedPlayedPosition.text.toString()
+        return position.isNullOrEmpty() == false
+    }
 
 }
 

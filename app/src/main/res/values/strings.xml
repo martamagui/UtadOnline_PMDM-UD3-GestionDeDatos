@@ -11,8 +11,11 @@
     <string name="item_age_title">Edad: %s</string>
     <string name="item_played_position_title">Juega en: %s</string>
     <string name="item_ranking_title">Posición en el ranking</string>
+    <string name="item_score_title">Media de goles</string>
     <string name="item_terms_title">Acepta términos y condiciones</string>
     <string name="item_save_title">Jugador administrador guardado</string>
+    <string name="item_save_title_cleanned_shared_preferences">Jugador administrador guardado - Cleanned Shared Preferences</string>
+    <string name="item_save_title_data_sote">Jugador administrador guardado - Data Store</string>
 
     <string name="add_title">Añadir jugador/a</string>
     <string name="name_title">Nombre</string>

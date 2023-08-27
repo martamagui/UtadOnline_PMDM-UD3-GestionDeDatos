@@ -41,7 +41,7 @@ class MySharedPreferencesStorage(private val context: Context) {
         val rakingPosition = sharedPreferencesStorage.getLong("rankingGlobalPosition", 0L)
         val playedPositions = sharedPreferencesStorage.getStringSet("playedPositions", null)
         delay(500)
-        return "$name, juega de: $playedPositions, tiene $age años, con una puntuación media de $score goles por partido."
+        return "$name, juega de: ${playedPositions?.joinToString(",")}, tiene $age años, con una puntuación media de $score goles por partido."
     }
 
     suspend fun readPlayer(): Player {
