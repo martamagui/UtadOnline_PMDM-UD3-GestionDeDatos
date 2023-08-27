@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="seed">#ff9c28</color>
+    <color name="bg_player">#CECAFF</color>
+    <color name="bg_player_button">#615E8C</color>
     <color name="md_theme_light_primary">#8C5000</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
     <color name="md_theme_light_primaryContainer">#FFDCBF</color>
